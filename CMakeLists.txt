@@ -4,11 +4,22 @@ find_package(ament_cmake REQUIRED)
 find_package(ament_cmake_python REQUIRED)
 find_package(std_msgs REQUIRED)
 
-install(DIRECTORY config DESTINATION share/${PROJECT_NAME})
+install(
+    DIRECTORY config
+    DESTINATION share/${PROJECT_NAME}
+)
+
 ament_python_install_package(${PROJECT_NAME})
+
 install(PROGRAMS
   bob_llm/llm_node.py
   bob_llm/chat_node.py
   DESTINATION lib/${PROJECT_NAME}
 )
+
+if(BUILD_TESTING)
+  find_package(ament_lint_auto REQUIRED)
+  ament_lint_auto_find_test_dependencies()
+endif()
+
 ament_package()
